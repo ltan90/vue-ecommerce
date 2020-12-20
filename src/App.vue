@@ -1,23 +1,50 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <div id="loading" v-if="loading">
+      <img src="/static/img/loading.gif" alt="loading">
+    </div>
     <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {
+      loading: false
+    }
+  },
+  created () {
+    this.$eventBus.$on('loadingStatus', payload => {
+      this.loading = payload
+    })
+  }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  /* display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+  justify-content: center;
+  height: 100vh; */
+}
+#loading{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,255,255,0.5);
+  z-index: 1100;
 }
 </style>
