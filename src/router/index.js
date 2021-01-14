@@ -18,7 +18,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: {path: 'login'}
+      redirect: {path: 'shop'}
     },
     {
       path: '/login',
@@ -27,7 +27,6 @@ const router = new Router({
     },
     {
       path: '/admin',
-      name: 'Admin',
       component: Admin,
       children: [
         {
@@ -59,7 +58,6 @@ const router = new Router({
     },
     {
       path: '/shop',
-      name: 'Shop',
       component: Shop,
       redirect: {path: '/shop/products'},
       children: [

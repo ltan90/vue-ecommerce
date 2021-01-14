@@ -51,7 +51,7 @@ const store = new Vuex.Store({
       }
     },
     clearCart (state) {
-      return state.carts = []
+      state.carts = []
     }
   }
 })

@@ -93,24 +93,11 @@ export default {
       }
     }
   },
-  mounted () {
-    this.init()
-  },
   methods: {
     checkForm () {
-      if (this.handleSuppliers.name && this.handleSuppliers.description) {
-        return true
-      }
-      if (!this.handleSuppliers.name) {
-        this.validateFields.errorSupplierName = 'Please enter supplier name!'
-      } else {
-        this.validateFields.errorSupplierName = ''
-      }
-      if (!this.handleSuppliers.description) {
-        this.validateFields.errorSupplierDescription = 'Please enter supplier description!'
-      } else {
-        this.validateFields.errorSupplierDescription = ''
-      }
+      this.validateFields.errorSupplierName = this.handleSuppliers.name ? '' : 'Please enter supplier name!'
+      this.validateFields.errorSupplierDescription = this.handleSuppliers.description ? '' : 'Please enter supplier description!'
+      return this.handleSuppliers.name && this.handleSuppliers.description
     },
     init () {
       this.$eventBus.$emit('loadingStatus', true)
@@ -173,6 +160,9 @@ export default {
         }
       })
     }
+  },
+  created () {
+    this.init()
   }
 }
 </script>

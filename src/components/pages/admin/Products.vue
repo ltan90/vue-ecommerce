@@ -139,24 +139,16 @@ export default {
       supplierName: ''
     }
   },
-  mounted () {
-    this.init()
+  computed: {
+    validateFullName () {
+      return `<span class="text-danger">Please enter full name!</span>`
+    }
   },
   methods: {
     checkForm () {
-      if (this.handleProducts.name && this.handleProducts.description) {
-        return true
-      }
-      if (!this.handleProducts.name) {
-        this.validateFields.errorProductName = 'Please enter product name!'
-      } else {
-        this.validateFields.errorProductName = ''
-      }
-      if (!this.handleProducts.price) {
-        this.validateFields.errorProductPrice = 'Please enter product description!'
-      } else {
-        this.validateFields.errorProductPrice = ''
-      }
+      this.validateFields.errorProductName = this.handleProducts.name ? '' : 'Please enter product name!'
+      this.validateFields.errorProductPrice = this.handleProducts.price ? '' : 'Please enter product price!'
+      return this.handleProducts.name && this.handleProducts.price
     },
     init () {
       this.$eventBus.$emit('loadingStatus', true)
@@ -229,6 +221,9 @@ export default {
         }
       })
     }
+  },
+  created () {
+    this.init()
   }
 }
 </script>

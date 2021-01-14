@@ -93,24 +93,11 @@ export default {
       }
     }
   },
-  mounted () {
-    this.init()
-  },
   methods: {
     checkForm () {
-      if (this.handleCategories.name && this.handleCategories.description) {
-        return true
-      }
-      if (!this.handleCategories.name) {
-        this.validateFields.errorCategoryName = 'Please enter category name!'
-      } else {
-        this.validateFields.errorCategoryName = ''
-      }
-      if (!this.handleCategories.description) {
-        this.validateFields.errorCategoryDescription = 'Please enter category description!'
-      } else {
-        this.validateFields.errorCategoryDescription = ''
-      }
+      this.validateFields.errorCategoryName = this.handleCategories.name ? '' : 'Please enter category name!'
+      this.validateFields.errorCategoryDescription = this.handleCategories.description ? '' : 'Please enter category description!'
+      return this.handleCategories.name && this.handleCategories.description
     },
     init () {
       this.$eventBus.$emit('loadingStatus', true)
@@ -172,6 +159,9 @@ export default {
         }
       })
     }
+  },
+  created () {
+    this.init()
   }
 }
 </script>

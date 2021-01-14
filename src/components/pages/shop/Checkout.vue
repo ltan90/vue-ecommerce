@@ -7,7 +7,7 @@
       <div class="form-group row">
         <label for="fullName" class="col-sm-3 col-form-label">Full name</label>
         <div class="col-sm-9">
-          <input type="text" class="form-control" cols="30" rows="5" v-model="handleOrders.full_name" placeholder="Full name" />
+          <input type="text" id="full_name" class="form-control" v-model="handleOrders.full_name" placeholder="Full name" />
           <span v-if="validateFields.errorFullName" class="text-danger" v-text="validateFields.errorFullName"></span>
         </div>
       </div>
@@ -15,18 +15,21 @@
         <label for="address" class="col-sm-3 col-form-label">Address</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" v-model="handleOrders.address" placeholder="Address">
+          <span v-if="validateFields.errorAddress" class="text-danger" v-text="validateFields.errorAddress"></span>
         </div>
       </div>
       <div class="form-group row">
         <label for="phone" class="col-sm-3 col-form-label">Phone number</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" v-model="handleOrders.phone" placeholder="Phone number">
+          <span v-if="validateFields.errorPhone" class="text-danger" v-text="validateFields.errorPhone"></span>
         </div>
       </div>
       <div class="form-group row">
         <label for="email" class="col-sm-3 col-form-label">Email address</label>
         <div class="col-sm-9">
           <input type="email" class="form-control" v-model="handleOrders.email" placeholder="Email address">
+          <span v-if="validateFields.errorEmail" class="text-danger" v-text="validateFields.errorEmail"></span>
         </div>
       </div>
       <div class="form-group row">
@@ -55,20 +58,20 @@ export default {
       },
       alertSuccessOrder: false,
       validateFields: {
-        errorFullName: ''
+        errorFullName: '',
+        errorAddress: '',
+        errorPhone: '',
+        errorEmail: ''
       }
     }
   },
   methods: {
     checkForm () {
-      if (this.handleOrders.full_name) {
-        return true
-      }
-      if (!this.handleOrders.full_name) {
-        this.validateFields.errorFullName = 'Please enter full name!'
-      } else {
-        this.validateFields.errorFullName = ''
-      }
+      this.validateFields.errorFullName = this.handleOrders.full_name ? '' : 'Please enter full name!'
+      this.validateFields.errorAddress = this.handleOrders.address ? '' : 'Please enter address!'
+      this.validateFields.errorPhone = this.handleOrders.phone ? '' : 'Please enter phone number!'
+      this.validateFields.errorEmail = this.handleOrders.email ? '' : 'Please enter email address!'
+      return this.handleOrders.full_name && this.handleOrders.address && this.handleOrders.phone && this.handleOrders.email
     },
     orderNow () {
       if (this.checkForm()) {
